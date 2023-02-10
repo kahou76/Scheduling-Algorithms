@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         name = strsep(&temp,",");
         priority = atoi(strsep(&temp,","));
         burst = atoi(strsep(&temp,","));
-
+        //printf("Name: %s Pirority: %i Burst Time: %i\n", name, priority, burst);
         // add the task to the scheduler's list of tasks
         add(name,priority,burst);
 
