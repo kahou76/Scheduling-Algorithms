@@ -49,6 +49,7 @@ void add(char *name, int priority, int burst){
 void schedule(){
     printf("_______________________RUNNING ROUND ROBIN_______________________\n");
     int sum = 0;
+    double dispatcherCount = 0;
     struct node *curr = head;
     while(curr != NULL){
         int count = 0;
@@ -72,10 +73,16 @@ void schedule(){
             tail = newNode;
         }
         run(curr->task, count);
+        dispatcherCount++;
         sum+=count;
         printf("\tTime is now: %d\n", sum);
         curr = curr->next;
         count = 0;
     }
+
+    //CPU Utilization 
+    //printf("HERE: %d, AND %.2f\n", sum, sum + dispatcherCount -1);
+    double cpu = (double)(sum / (sum + dispatcherCount-1) * 100);
+    printf("CPU Utilization: %.2f%% \n ", cpu);
     printf("_______________________ROUND ROBIN DONE_______________________\n\n");
 }

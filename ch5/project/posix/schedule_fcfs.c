@@ -43,12 +43,23 @@ void add(char *name, int priority, int burst){
 void schedule(){
     printf("_______________________RUNNING FCFS_______________________\n");
     int sum = 0;
+    double dispatcherCount = 0;
+    //char[][2] strArr;
     struct node *curr = head;
     while(curr != NULL){
         run(curr->task, curr->task->burst);
+        dispatcherCount++;
         sum+=curr->task->burst;
         printf("\tTime is now: %i\n", sum);
         curr = curr->next;
     }
+
+    //CPU Utilization 
+    //printf("HERE: %d, AND %.2f\n", sum, sum + dispatcherCount -1);
+    double cpu = (double)(sum / (sum + dispatcherCount-1) * 100);
+    printf("CPU Utilization: %.2f%% \n ", cpu);
+
+    //RUN TIME TABLE
+    // printf("\t| ")
     printf("________________________FCFS DONE________________________\n\n");
 }

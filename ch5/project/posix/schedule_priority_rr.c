@@ -81,6 +81,7 @@ struct node* makeCopy(struct node* curr){
 void schedule(){
     printf("_______________________RUNNING PRIORITY ROUND ROBIN_______________________\n");
     int sum = 0;
+    double dispatcherCount = 0;
     struct node *curr = head;
     while(curr != NULL){
         //create new list with same priority
@@ -114,6 +115,7 @@ void schedule(){
                 copyTail = newNode;
             }
             run(currCopy->task, count);
+            dispatcherCount++;
             sum+=count;
             printf("\tTime is now: %d\n", sum);
             currCopy = currCopy->next;
@@ -121,5 +123,10 @@ void schedule(){
         }
         curr = curr->next;
     }
+
+    //CPU Utilization 
+    //printf("HERE: %d, AND %.2f\n", sum, sum + dispatcherCount -1);
+    double cpu = (double)(sum / (sum + dispatcherCount-1) * 100);
+    printf("CPU Utilization: %.2f%% \n ", cpu);
     printf("_______________________PRIORITY ROUND ROBIN DONE_______________________\n");
 }
